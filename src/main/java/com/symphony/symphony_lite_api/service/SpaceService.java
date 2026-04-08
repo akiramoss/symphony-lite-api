@@ -16,7 +16,7 @@ public class SpaceService {
     public SpaceResponse createSpace(CreateSpaceRequest request) {
 
         Space space = Space.builder()
-                .name(request.getSpaceName())
+                .name(request.getName())
                 .description(request.getDescription())
                 .build();
 
@@ -24,7 +24,7 @@ public class SpaceService {
 
         return SpaceResponse.builder()
                 .id(saved.getId())
-                .spaceName(saved.getName())
+                .name(saved.getName())
                 .description(saved.getDescription())
                 .build();
     }

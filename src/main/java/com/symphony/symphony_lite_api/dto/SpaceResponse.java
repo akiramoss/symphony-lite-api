@@ -8,6 +8,6 @@ import lombok.Data;
 public class SpaceResponse {
 
     private Long id;
-    private String spaceName;
+    private String name;
     private String description;
 }

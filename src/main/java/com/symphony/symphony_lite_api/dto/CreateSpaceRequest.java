@@ -7,7 +7,7 @@ import lombok.Data;
 public class CreateSpaceRequest {
 
     @NotBlank
-    private String spaceName;
+    private String name;
 
     @NotBlank
     private String description;
