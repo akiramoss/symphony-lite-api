@@ -3,6 +3,8 @@ package com.symphony.symphony_lite_api.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -21,4 +23,7 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Space> spaces;
 }
