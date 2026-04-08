@@ -41,6 +41,9 @@ public class SpaceService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ApiException("User not found"));
 
+        if (space.getUsers().contains(user)) {
+            throw new ApiException("User already in space");
+        }
         space.getUsers().add(user);
 
         spaceRepository.save(space);
