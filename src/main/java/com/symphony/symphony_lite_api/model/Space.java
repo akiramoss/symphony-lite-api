@@ -3,6 +3,7 @@ package com.symphony.symphony_lite_api.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,5 +30,6 @@ public class Space {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
 
-    private Set<User> users;
+    @Builder.Default
+    private Set<User> users = new HashSet<>();
 }
