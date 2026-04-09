@@ -33,19 +33,29 @@ public class SpaceService {
                 .build();
     }
 
-    public void joinSpace(Long spaceId, Long userId) {
+    public SpaceResponse joinSpace(Long spaceId, Long userId) {
 
         Space space = spaceRepository.findById(spaceId)
-                .orElseThrow(() -> new ApiException("Space not found"));
+                .orElseThrow(() -> new ApiException("Space " + spaceId + " not found"));
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ApiException("User not found"));
+                .orElseThrow(() -> new ApiException("User with id "  + userId + " not found"));
 
-        if (space.getUsers().contains(user)) {
-            throw new ApiException("User already in space");
+        boolean alreadyJoined = space.getUsers().stream()
+                .anyMatch(u -> u.getId().equals(userId));
+
+        if(alreadyJoined){
+            throw new ApiException("User with id " + userId + " joined already");
         }
+
         space.getUsers().add(user);
 
         spaceRepository.save(space);
+
+        return SpaceResponse.builder()
+                .id(space.getId())
+                .name(space.getName())
+                .description(space.getDescription())
+                .build();
     }
 }
