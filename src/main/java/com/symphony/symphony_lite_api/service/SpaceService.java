@@ -39,12 +39,12 @@ public class SpaceService {
                 .orElseThrow(() -> new ApiException("Space " + spaceId + " not found"));
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ApiException("User with id "  + userId + " not found"));
+                .orElseThrow(() -> new ApiException("User with id " + userId + " not found"));
 
         boolean alreadyJoined = space.getUsers().stream()
                 .anyMatch(u -> u.getId().equals(userId));
 
-        if(alreadyJoined){
+        if (alreadyJoined) {
             throw new ApiException("User with id " + userId + " joined already");
         }
 
