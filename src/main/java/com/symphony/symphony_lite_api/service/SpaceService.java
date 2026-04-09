@@ -3,6 +3,7 @@ package com.symphony.symphony_lite_api.service;
 import com.symphony.symphony_lite_api.dto.CreateSpaceRequest;
 import com.symphony.symphony_lite_api.dto.SpaceResponse;
 import com.symphony.symphony_lite_api.exception.ApiException;
+import com.symphony.symphony_lite_api.model.InteractionType;
 import com.symphony.symphony_lite_api.model.Space;
 import com.symphony.symphony_lite_api.model.User;
 import com.symphony.symphony_lite_api.repository.SpaceRepository;
@@ -16,6 +17,8 @@ public class SpaceService {
 
     private final SpaceRepository spaceRepository;
     private final UserRepository userRepository;
+
+    private final InteractionService interactionService;
 
     public SpaceResponse createSpace(CreateSpaceRequest request) {
 
@@ -49,6 +52,8 @@ public class SpaceService {
         }
 
         space.getUsers().add(user);
+
+        interactionService.trackInteraction(userId, spaceId, InteractionType.JOIN);
 
         spaceRepository.save(space);
 
