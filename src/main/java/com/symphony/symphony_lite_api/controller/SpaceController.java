@@ -14,7 +14,7 @@ public class SpaceController {
     private final SpaceService spaceService;
 
     @PostMapping
-    public SpaceResponse createSpace(@RequestBody CreateSpaceRequest request) {
+    public SpaceResponse createSpace(@RequestBody /**/CreateSpaceRequest request) {
         return spaceService.createSpace(request);
     }
 
