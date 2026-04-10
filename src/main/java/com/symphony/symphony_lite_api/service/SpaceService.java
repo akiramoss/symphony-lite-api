@@ -6,6 +6,8 @@ import com.symphony.symphony_lite_api.exception.ApiException;
 import com.symphony.symphony_lite_api.model.InteractionType;
 import com.symphony.symphony_lite_api.model.Space;
 import com.symphony.symphony_lite_api.model.User;
+import com.symphony.symphony_lite_api.projection.SpaceCountProjection;
+import com.symphony.symphony_lite_api.repository.AnalyticsRepository;
 import com.symphony.symphony_lite_api.repository.SpaceRepository;
 import com.symphony.symphony_lite_api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ public class SpaceService {
 
     private final SpaceRepository spaceRepository;
     private final UserRepository userRepository;
+    private final AnalyticsRepository analyticsRepository;
 
     private final InteractionService interactionService;
 
@@ -64,5 +67,25 @@ public class SpaceService {
                 .name(space.getName())
                 .description(space.getDescription())
                 .build();
+    }
+
+    public List<SpaceResponse> getTopSpaces() {
+
+        List<SpaceCountProjection> results = analyticsRepository.findTopSpaces();
+
+        return results.stream()
+                .map(result -> {
+                    Long spaceId = result.getSpaceId();
+
+                    Space space = spaceRepository.findById(spaceId)
+                            .orElseThrow(() -> new ApiException("Space not found"));
+
+                    return SpaceResponse.builder()
+                            .id(space.getId())
+                            .name(space.getName())
+                            .description(space.getDescription())
+                            .build();
+                })
+                .toList();
     }
 }
