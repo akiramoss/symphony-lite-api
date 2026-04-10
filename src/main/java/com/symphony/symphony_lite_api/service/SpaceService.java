@@ -13,6 +13,7 @@ import com.symphony.symphony_lite_api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -86,6 +87,20 @@ public class SpaceService {
                             .description(space.getDescription())
                             .build();
                 })
+                .toList();
+    }
+
+    public List<SpaceResponse> getTrendingSpaces(int hours) {
+
+        LocalDateTime since = LocalDateTime.now().minusHours(hours);
+
+        return analyticsRepository.findTrendingSpaces(since)
+                .stream()
+                .map(result -> SpaceResponse.builder()
+                        .id(result.getSpaceId())
+                        .name(result.getName())
+                        .description(result.getDescription())
+                        .build())
                 .toList();
     }
 }
