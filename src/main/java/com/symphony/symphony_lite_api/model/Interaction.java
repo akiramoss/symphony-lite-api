@@ -26,4 +26,7 @@ public class Interaction {
     private InteractionType type;
 
     private LocalDateTime timestamp;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 }
