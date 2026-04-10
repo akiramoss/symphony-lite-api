@@ -6,6 +6,8 @@ import com.symphony.symphony_lite_api.service.SpaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/spaces")
 @RequiredArgsConstructor
@@ -24,5 +26,15 @@ public class SpaceController {
         spaceService.joinSpace(spaceId, userId);
 
         return "User joined space successfully";
+    }
+
+    @GetMapping("/top")
+    public List<SpaceResponse> getTopSpaces() {
+        return spaceService.getTopSpaces();
+    }
+
+    @GetMapping("/trending")
+    public List<SpaceResponse> getTrendingSpaces(@RequestParam int hours) {
+        return spaceService.getTrendingSpaces(hours);
     }
 }
