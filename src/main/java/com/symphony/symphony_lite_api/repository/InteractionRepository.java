@@ -12,13 +12,4 @@ public interface InteractionRepository extends JpaRepository<Interaction, Long> 
     List<Interaction> findByUserId(Long userId);
 
     List<Interaction> findBySpaceId(Long spaceId);
-
-    @Query("""
-            SELECT i.spaceId, COUNT(i) as count
-            FROM Interaction i
-            WHERE i.type = 'JOIN'
-            GROUP BY i.spaceId
-            ORDER BY count DESC
-            """)
-    List<Object[]> findTopSpaces();
 }
