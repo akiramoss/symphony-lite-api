@@ -1,8 +1,12 @@
 spring:
+  application:
+    name: symphony-lite-api
+
   datasource:
     url: jdbc:mysql://localhost:3306/symphony
-    username: root
-    password: root
+    username: symphony_user
+    password: symphony_pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
