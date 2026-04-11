@@ -10,6 +10,8 @@ public interface SpaceAnalyticsProjection {
 
     String getDescription();
 
+    Long getCount();
+
     LocalDateTime findTrendigSpaces();
 
 }

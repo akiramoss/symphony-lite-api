@@ -13,13 +13,14 @@ public interface AnalyticsRepository extends JpaRepository<Interaction, Long> {
 
     // VER OPTIMIZACIÓN
     @Query("""
-                SELECT i.spaceId as spaceId, COUNT(i) as count
+                SELECT s.id as spaceId, s.name as name, s.description as description, COUNT(i) as count
                 FROM Interaction i
+                JOIN Space s ON s.id = i.spaceId
                 WHERE i.type = 'JOIN'
-                GROUP BY i.spaceId
+                GROUP BY s.id, s.name, s.description
                 ORDER BY count DESC
             """)
-    List<SpaceCountProjection> findTopSpaces();
+    List<SpaceAnalyticsProjection> findTopSpaces();
 
     @Query("""
                 SELECT s.id as spaceId, s.name as name, s.description as description, COUNT(i) as count
