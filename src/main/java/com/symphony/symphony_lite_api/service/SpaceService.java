@@ -72,21 +72,13 @@ public class SpaceService {
 
     public List<SpaceResponse> getTopSpaces() {
 
-        List<SpaceCountProjection> results = analyticsRepository.findTopSpaces();
-
-        return results.stream()
-                .map(result -> {
-                    Long spaceId = result.getSpaceId();
-
-                    Space space = spaceRepository.findById(spaceId)
-                            .orElseThrow(() -> new ApiException("Space not found"));
-
-                    return SpaceResponse.builder()
-                            .id(space.getId())
-                            .name(space.getName())
-                            .description(space.getDescription())
-                            .build();
-                })
+        return analyticsRepository.findTopSpaces()
+                .stream()
+                .map(result -> SpaceResponse.builder()
+                        .id(result.getSpaceId())
+                        .name(result.getName())
+                        .description(result.getDescription())
+                        .build())
                 .toList();
     }
 

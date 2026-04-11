@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface AnalyticsRepository extends JpaRepository<Interaction, Long> {
 
-    // VER OPTIMIZACIÓN
     @Query("""
                 SELECT s.id as spaceId, s.name as name, s.description as description, COUNT(i) as count
                 FROM Interaction i
