@@ -1,10 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/symphony
-    username: symphony_user
-    password: symphony_pass
+    url: jdbc:mysql://localhost:3306/symphony
+    username: root
+    password: root
 
   jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
